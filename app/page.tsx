@@ -61,7 +61,7 @@ export default function IndexPage() {
         <section className="container flex flex-col justify-center gap-6 md:py-10 h-[calc(100vh-150px)] items-center ">
             <Flex direction="column" gap="4">
                 <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-                    GoldRush NFT UI
+                    GoldRush NFT Gallery UI
                 </h1>
                 <p className="max-w-[700px] text-lg text-muted-foreground">
                     Accessible and customizable components that you can copy and paste

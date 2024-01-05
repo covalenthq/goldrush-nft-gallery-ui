@@ -4,7 +4,6 @@ import { COVALENT_API_KEY } from "@/lib/utils"
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,

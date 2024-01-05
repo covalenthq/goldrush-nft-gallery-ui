@@ -13,6 +13,7 @@ import "@radix-ui/themes/styles.css"
 import { NftProvider } from "@/lib/store"
 import { poweredCovalent } from "@/lib/svg"
 import { Toaster } from "@/components/ui/toaster"
+import { KeyDialog } from "@/components/key-dialog"
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                       {poweredCovalent}
                     </a>
                   </footer>
+                  <KeyDialog />
                   <Toaster />
                 </div>
               </NftProvider>

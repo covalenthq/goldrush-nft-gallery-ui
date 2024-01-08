@@ -95,7 +95,7 @@ export default function IndexPage() {
                 <Command>
                   <CommandInput placeholder="Search framework..." />
                   <CommandEmpty>No chain found.</CommandEmpty>
-                  <CommandGroup>
+                  <CommandGroup className="">
                     {allChains.map((chain) => (
                       <CommandItem
                         key={chain.label}

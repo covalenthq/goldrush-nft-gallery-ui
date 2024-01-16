@@ -1,8 +1,8 @@
 <div align="center">
   <a href="https://www.covalenthq.com/products/goldrush/" target="_blank">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/covalenthq/goldrush-wallet-portfolio-ui/static/banner.png">
-    <img alt="GoldRush Portfolio & Wallet UI template" src="https://raw.githubusercontent.com/covalenthq/goldrush-wallet-portfolio-ui/main/static/banner.png" width="280"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/covalenthq/goldrush-nft-gallery-ui/main/static/grk-nft-banner.png">
+    <img alt="GoldRush NFT Gallery UI template" src="https://raw.githubusercontent.com/covalenthq/goldrush-nft-gallery-ui/main/static/grk-nft-banner.png" width="680"/>
   </picture>
   </a>
 </div>

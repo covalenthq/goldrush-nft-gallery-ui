@@ -28,9 +28,7 @@ export function SiteHeader() {
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
-            <Link
-              href={siteConfig.links.settings}
-            >
+            <Link href={siteConfig.links.settings}>
               <div
                 className={buttonVariants({
                   size: "icon",

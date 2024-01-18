@@ -15,7 +15,7 @@ Powered by GoldRush Kit. Open-source. Customizable. 200+ Chains.
 
 ## Ready-to-use customizable template
 
-<a href="https://goldrush-wallet-portfolio-ui.vercel.app/">View live template</a>
+<a href="https://goldrush-nft-gallery-ui.vercel.app/">View live template</a>
 
 <img alt="GoldRush NFT List" src="https://raw.githubusercontent.com/covalenthq/goldrush-nft-gallery-ui/main/static/grk-nft-list.png" style="max-width: 100%;"/>
 

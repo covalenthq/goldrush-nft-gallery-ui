@@ -2,6 +2,19 @@
   <a href="https://www.covalenthq.com/products/goldrush/" target="_blank">
     <img alt="GoldRush NFT Gallery UI template" src="https://raw.githubusercontent.com/covalenthq/goldrush-nft-gallery-ui/main/static/grk-nft-banner.png" style="max-width: 100%;"/>
   </a>
+  <br/>
+  
+[![GitHub license](https://img.shields.io/github/license/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/blob/main/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/commits/master)
+[![GitHub contributors](https://img.shields.io/github/contributors/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/covalenthq/goldrush-nft-gallery-ui)](https://github.com/covalenthq/goldrush-nft-gallery-ui/network/members)
+
+<!-- Additional sections of your README -->
+
+
 
 </div>
 

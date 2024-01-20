@@ -28,11 +28,11 @@ import { useToast } from "@/components/ui/use-toast"
 export default function IndexPage() {
   const { nftAddress } = useContext(NftContext)
   const [allChains, setChains] = useState<ChainItem[]>([])
-  const [address, setAddress] = useState(nftAddress ? nftAddress : "")
+  const [address, setAddress] = useState(nftAddress ? nftAddress : "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D")
   const [busy, setBusy] = useState(false)
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState("eth-mainnet")
   const { toast } = useToast()
 
   const handleAllChains = async () => {

@@ -30,7 +30,7 @@ Powered by GoldRush Kit. Open-source. Customizable. 200+ Chains.
 
 <a href="https://goldrush-nft-gallery-ui.vercel.app/">View live template</a>
 
-https://github.com/covalenthq/goldrush-nft-gallery-ui/assets/471422/83210a72-696a-4ecb-8adc-6cbbe414454a
+https://github.com/covalenthq/goldrush-nft-gallery-ui/assets/471422/9b4038cf-63b6-4f46-b58b-1a4d41efada2
 
 ## One-click deploy
 

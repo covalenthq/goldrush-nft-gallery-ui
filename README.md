@@ -30,9 +30,7 @@ Powered by GoldRush Kit. Open-source. Customizable. 200+ Chains.
 
 <a href="https://goldrush-nft-gallery-ui.vercel.app/">View live template</a>
 
-<img alt="GoldRush NFT List" src="https://raw.githubusercontent.com/covalenthq/goldrush-nft-gallery-ui/main/static/grk-nft-list.png" style="max-width: 100%;"/>
-
-<img alt="GoldRush NFT Detail" src="https://raw.githubusercontent.com/covalenthq/goldrush-nft-gallery-ui/main/static/grk-nft-detail.png" style="max-width: 100%;"/>
+https://github.com/covalenthq/goldrush-nft-gallery-ui/assets/471422/9b4038cf-63b6-4f46-b58b-1a4d41efada2
 
 ## One-click deploy
 
@@ -58,12 +56,14 @@ Visit GoldRush's [component documentation](https://www.covalenthq.com/docs/unifi
 
 ## Features
 
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Tailwind CSS class sorting, merging and linting.
+
+- Quick NFT App Development: Accelerate the creation of NFT-focused galleries and apps.
+- Broad Data Access: Tap into data from over 200 blockchains through seamless integration with the Covalent Unified API.
+- Streamlined Workflow: Simplify development with the power and efficiency of Next.js 13.
+- Tailor-Made Interfaces: Craft beautiful, custom interfaces effortlessly with Radix UI.
+- Stunning Designs Fast: Quickly build visually appealing designs with Tailwind CSS.
+- Enhanced Visual Appeal: Boost your app's visuals with the versatile icon library from Lucide.
+- User-Preferred Theming: Offer users the choice and comfort of dark mode with built-in support.
 
 
 ## 🤝 Contributing

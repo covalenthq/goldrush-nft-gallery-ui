@@ -23,8 +23,9 @@
 <h1 align="center">Beautifully designed NFT Gallery template.</h1>
 
 <div align="center">
-Powered by GoldRush Kit. Open-source. Customizable. 200+ Chains.
+Powered by <span><a href="https://github.com/covalenthq/goldrush-kit">GoldRush Kit.</a></span> Open-source. Customizable. 200+ Chains.
 </div>
+
 
 ## Ready-to-use customizable template
 
@@ -52,7 +53,7 @@ npm run dev
 
 ## Documentation
 
-Visit GoldRush's [component documentation](https://www.covalenthq.com/docs/unified-api/goldrush/kit/gold-rush-provider/) or [github](https://github.com/covalenthq/goldrush-kit)  for more information.
+Visit GoldRush's [component documentation](https://www.covalenthq.com/docs/unified-api/quickstart/goldrush-kit/) or [github](https://github.com/covalenthq/goldrush-kit)  for more information.
 
 ## Features
 

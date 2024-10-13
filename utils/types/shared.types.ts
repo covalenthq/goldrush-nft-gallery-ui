@@ -43,7 +43,7 @@ export interface CollectionStats {
   avatar: string
 }
 
-export interface NftDetails {
+export interface NftDetailsType {
   collection_name: string
   collection_address: string
   token_id: string

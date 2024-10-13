@@ -19,11 +19,13 @@ export default function Collection({
 }: Readonly<{ params: { chain: Chain; address: string } }>) {
   const router = useRouter()
   const { theme } = useGoldRush()
+  const [loading, setLoading] = useState<boolean>(true)
   const [collectionDetails, setCollectionDetails] =
     useState<CollectionStats | null>(null)
 
   useEffect(() => {
     ;(async () => {
+      setLoading(true)
       const responses = await Promise.all([
         fetch(
           `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-size=1`
@@ -41,13 +43,14 @@ export default function Collection({
       const marketVolumeData = await responses[2].json()
 
       setCollectionDetails({
-        name: metadataData.data.items[0].name,
+        name: metadataData.data.items[0].contract_name,
         avatar: metadataData.data.items[0].nft_data.external_data.asset_url,
         floorPrice: floorPriceData.data.items[0].pretty_floor_price_quote,
         marketVolume:
           marketVolumeData.data.items[marketVolumeData.data.items.length - 1]
             .pretty_volume_quote,
       })
+      setLoading(false)
     })()
   }, [params.address])
 
@@ -57,23 +60,31 @@ export default function Collection({
         <AddressCard
           address={params.address}
           avatar={{ rounded: true, custom_avatar: collectionDetails?.avatar }}
-          label={collectionDetails?.name}
+          label={loading ? "Loading..." : collectionDetails?.name}
         />
         <div
           className="flex gap-8 border border-borderColor p-2"
           style={{ borderRadius: `${theme.borderRadius}px` }}
         >
-          <div>
+          <div className="w-40">
             <h6 className="text-base font-semibold text-secondary-light dark:text-secondary-dark">
               Market volume
             </h6>
-            <p className="text-xl">{collectionDetails?.marketVolume}</p>
+            {loading ? (
+              <div className="h-4 bg-gray-300 rounded animate-pulse"></div>
+            ) : (
+              <p className="text-xl">{collectionDetails?.marketVolume}</p>
+            )}
           </div>
-          <div>
+          <div className="w-36">
             <h6 className="text-base font-semibold text-secondary-light dark:text-secondary-dark">
               Floor Price
             </h6>
-            <p className="text-xl">{collectionDetails?.floorPrice}</p>
+            {loading ? (
+              <div className="h-4 bg-gray-300 rounded animate-pulse"></div>
+            ) : (
+              <p className="text-xl">{collectionDetails?.floorPrice}</p>
+            )}
           </div>
         </div>
       </div>

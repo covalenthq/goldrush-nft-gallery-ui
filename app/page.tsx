@@ -46,7 +46,6 @@ export default function IndexPage() {
       const allChainsResp = await client.BaseService.getAllChains()
       if (allChainsResp.error) {
         toast({
-          variant: "destructive",
           title: "Something went wrong.",
           description: allChainsResp.error_message,
         })

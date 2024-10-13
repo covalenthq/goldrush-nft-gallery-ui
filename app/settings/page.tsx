@@ -26,7 +26,7 @@ export default function Settings({
       <div className="flex flex-wrap gap-2">
         {Object.entries(COLORS).map(([_color, value]) => (
           <button
-            key={_color}
+            key={_color+value}
             style={{ backgroundColor: value }}
             className={`tokenAvatar w-8 h-8 rounded-full cursor-pointer ${
               value === theme.colors.light?.foreground &&
@@ -67,7 +67,7 @@ export default function Settings({
       <div className="flex flex-wrap items-center gap-2">
         {Object.entries(BORDER_RADIUS).map(([radius, value]) => (
           <button
-            key={radius}
+            key={radius+value}
             style={{ borderRadius: value }}
             className={`border p-2 cursor-pointer ${
               value === theme.borderRadius && "border-black dark:border-white"

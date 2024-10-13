@@ -8,11 +8,13 @@ export function cn(...inputs: ClassValue[]) {
 export const COVALENT_API_KEY = process.env.NEXT_PUBLIC_COVALENT_API_KEY
 
 export const COLORS = {
+  "black": "#000000",
   "slate": "#64748b",
   "gray": "#6b7280",
   "zinc": "#71717a",
   "neutral": "#737373",
   "stone": "#78716c",
+  "white": "#F4F3F2",
   "red": "#ef4444",
   "orange": "#f97316",
   "amber": "#f59e0b",
@@ -32,10 +34,12 @@ export const COLORS = {
   "rose": "#f43f5e"
 }
 
-export const BORDER_RADIUS = {
-  "none": "0.0rem",
-  "small": "0.25rem",
-  "medium": "0.5rem",
-  "large": "0.75rem",
-  "full": "1rem"
+export const BORDER_RADIUS : {
+  [key: string]: number
+} = {
+  "None": 0,
+  "Small": 2,
+  "Medium": 6,
+  "Large": 8,
+  "Full": 9999
 };

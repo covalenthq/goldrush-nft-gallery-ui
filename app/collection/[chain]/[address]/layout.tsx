@@ -7,7 +7,7 @@ interface DashboardLayoutProps {
   children: React.ReactNode
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+export default function DashboardLayout({ children }: Readonly<DashboardLayoutProps>) {
   return (
     <Flex
       className="container min-h-[calc(100vh-150px)] py-8 w-full"

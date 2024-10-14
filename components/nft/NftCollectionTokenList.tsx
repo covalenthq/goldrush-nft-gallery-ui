@@ -38,7 +38,7 @@ const NftCollectionTokenList: React.FC<{
     ;(async () => {
       setBusy(true)
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page}&page-size=${pageSize}`
+        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page-1}&page-size=${pageSize}`
       )
       const nftData = await response.json()
       if (nftData.error) return
@@ -51,6 +51,11 @@ const NftCollectionTokenList: React.FC<{
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
+  }
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize)
+    setPage(1)
   }
 
   const generatePagination = () => {
@@ -142,7 +147,7 @@ const NftCollectionTokenList: React.FC<{
       <div className="flex justify-between mt-4 w-full">
         <div className="mb-4">
           <Select
-            onValueChange={(value) => setPageSize(parseInt(value))}
+            onValueChange={(value) => handlePageSizeChange(parseInt(value))}
             defaultValue={pageSize.toString()}
           >
             <SelectTrigger className="w-32">

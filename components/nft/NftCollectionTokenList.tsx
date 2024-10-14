@@ -85,7 +85,12 @@ const NftCollectionTokenList: React.FC<{
                   borderRadius: theme.borderRadius,
                 }}
               >
-                <div className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"></div>
+                <div
+                  className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"
+                  style={{
+                    borderRadius: theme.borderRadius,
+                  }}
+                ></div>
               </div>
             ))
           : nftTokens?.map((token) => (

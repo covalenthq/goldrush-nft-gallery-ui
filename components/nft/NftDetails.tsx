@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { minifyAddress } from "@/utils/functions/minify-address"
 import { NftDetailsType } from "@/utils/types/shared.types"
 import { Chain } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
 import { CopyIcon } from "lucide-react"
-
-import { COVALENT_API_KEY } from "@/lib/utils"
-
-import LineChart from "../charts/LineChart"
-import { Button } from "../ui/button"
 import { useToast } from "../ui/use-toast"
+import FloorPriceChart from "./FloorPriceChart"
 
 const NftDetails: React.FC<{
   nftDetails: NftDetailsType
@@ -20,30 +16,6 @@ const NftDetails: React.FC<{
 }> = ({ nftDetails, params }) => {
   const { theme } = useGoldRush()
   const { toast } = useToast()
-  const [floorChartData, setFloorChartData] = useState<any>({
-    data: [],
-    labels: [],
-  })
-  const [days, setDays] = useState<number>(7)
-  const [currency, setCurrency] = useState<"usd" | "native">("usd")
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/floor_price/?key=${COVALENT_API_KEY}&days=${days}`
-      )
-      const floorPriceData = await response.json()
-      const labels = floorPriceData.data.items.map(
-        (item: any) => item.date.split("T")[0]
-      )
-      const prices = floorPriceData.data.items.map((item: any) =>
-        currency === "usd"
-          ? item.floor_price_quote
-          : item.floor_price_native_quote
-      )
-      setFloorChartData({ labels, data: prices })
-    })()
-  }, [params, days, currency])
 
   return (
     <div className="flex flex-col gap-2">
@@ -102,57 +74,7 @@ const NftDetails: React.FC<{
         </ul>
       </div>
 
-      <div
-        className="flex flex-col gap-6 border p-4"
-        style={{ borderRadius: `${theme.borderRadius}px` }}
-      >
-        <div className="flex w-full justify-between items-center">
-          <h5 className="text-lg font-bold">Floor Price</h5>
-          <div className="flex gap-4">
-            <Button
-              className="text-sm font-medium"
-              variant={currency === "usd" ? "primary" : "outline"}
-              onClick={() => setCurrency("usd")}
-            >
-              USD
-            </Button>
-            <Button
-              className="text-sm font-medium"
-              variant={currency === "native" ? "primary" : "outline"}
-              onClick={() => setCurrency("native")}
-            >
-              Native
-            </Button>
-            <Button
-              className="text-sm font-medium"
-              variant={days === 7 ? "primary" : "outline"}
-              onClick={() => setDays(7)}
-            >
-              7d
-            </Button>
-            <Button
-              className="text-sm font-medium"
-              variant={days === 30 ? "primary" : "outline"}
-              onClick={() => setDays(30)}
-            >
-              30d
-            </Button>
-            <Button
-              className="text-sm font-medium"
-              variant={days === 90 ? "primary" : "outline"}
-              onClick={() => setDays(90)}
-            >
-              90d
-            </Button>
-          </div>
-        </div>
-        <LineChart
-          data={floorChartData.data}
-          labels={floorChartData.labels}
-          mode={theme.mode}
-          dataLabel="Floor Price"
-        />
-      </div>
+      <FloorPriceChart params={params} />
     </div>
   )
 }

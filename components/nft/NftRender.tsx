@@ -15,7 +15,7 @@ const NftRender: React.FC<{
       <img
         src={nftDetails.image_url}
         alt="NFT"
-        className="h-[500px] w-[500px] object-contain"
+        className="max-h-fit h-[500px] w-[500px] object-contain"
       />
     </div>
   )

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { NftDetailsType } from "@/utils/types/shared.types"
 import { Chain } from "@covalenthq/client-sdk"
+import { useGoldRush } from "@covalenthq/goldrush-kit"
 
 import { COVALENT_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -14,10 +15,13 @@ export default function Collection({
   params,
 }: Readonly<{ params: { chain: Chain; address: string; token_id: string } }>) {
   const router = useRouter()
+  const { theme } = useGoldRush()
   const [nftDetails, setNftDetails] = useState<NftDetailsType | null>(null)
+  const [busy, setBusy] = useState(true)
 
   useEffect(() => {
     ;(async () => {
+      setBusy(true)
       const response = await fetch(
         `https://api.covalenthq.com/v1/${params.chain}/tokens/${params.address}/nft_metadata/${params.token_id}/?key=${COVALENT_API_KEY}`
       )
@@ -33,11 +37,36 @@ export default function Collection({
         current_owner: nftData.data.items[0].nft_data[0].owner_address,
         original_owner: nftData.data.items[0].nft_data[0].original_owner,
       })
+      setBusy(false)
     })()
   }, [params])
 
   return (
     <div className="flex flex-col gap-4 w-full">
+      {busy && (
+        <div className="flex items-start gap-x-4">
+          <div
+            className="h-[500px] w-[500px] bg-secondary-light dark:bg-secondary-dark animate-pulse"
+            style={{
+              borderRadius: `${theme.borderRadius}px`,
+            }}
+          />
+          <div className="flex flex-col gap-2 w-full">
+            <div
+              className="h-60 w-full bg-secondary-light dark:bg-secondary-dark animate-pulse"
+              style={{
+                borderRadius: `${theme.borderRadius}px`,
+              }}
+            />
+            <div
+              className="h-96 w-full bg-secondary-light dark:bg-secondary-dark animate-pulse"
+              style={{
+                borderRadius: `${theme.borderRadius}px`,
+              }}
+            />
+          </div>
+        </div>
+      )}
       {nftDetails && (
         <div className="flex items-start gap-x-4">
           <NftRender nftDetails={nftDetails} />

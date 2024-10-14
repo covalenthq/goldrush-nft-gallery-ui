@@ -3,14 +3,14 @@ import { Chart, registerables } from "chart.js"
 
 Chart.register(...registerables)
 
-type LineChartProps = {
+type BarChartProps = {
   data: number[]
   labels: string[]
   mode: "light" | "dark"
   dataLabel: string
 }
 
-const LineChart: React.FC<LineChartProps> = ({
+const BarChart: React.FC<BarChartProps> = ({
   data,
   labels,
   mode,
@@ -18,7 +18,7 @@ const LineChart: React.FC<LineChartProps> = ({
 }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null)
   const rootStyles = getComputedStyle(document.documentElement)
-  const lineColor =
+  const barColor =
     mode === "dark"
       ? rootStyles.getPropertyValue("--grk-primary-dark-DEFAULT")
       : rootStyles.getPropertyValue("--grk-primary-light-DEFAULT")
@@ -28,18 +28,18 @@ const LineChart: React.FC<LineChartProps> = ({
       const ctx = chartRef.current.getContext("2d")
       if (ctx) {
         const chartInstance = new Chart(ctx, {
-          type: "line",
+          type: "bar",
           data: {
             labels,
             datasets: [
               {
                 label: dataLabel,
                 data,
-                borderColor: lineColor,
-                backgroundColor: "transparent",
-                borderWidth: 2,
-                pointRadius: 0.5,
-                tension: 0.4,
+                backgroundColor: barColor,
+                borderColor: barColor,
+                borderWidth: 1,
+                borderRadius: 2,
+                barPercentage: 0.7,
               },
             ],
           },
@@ -71,9 +71,9 @@ const LineChart: React.FC<LineChartProps> = ({
         }
       }
     }
-  }, [data, labels, lineColor, mode])
+  }, [data, labels, barColor, mode])
 
   return <canvas ref={chartRef} />
 }
 
-export default LineChart
+export default BarChart

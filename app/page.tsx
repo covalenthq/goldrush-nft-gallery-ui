@@ -93,8 +93,6 @@ export default function IndexPage() {
     handleAllChains()
   }, [])
 
-  console.log(allChains)
-
   return (
     <section className="container flex flex-col justify-center gap-6 md:py-10 h-[calc(100vh-150px)] items-center ">
       <div className="flex flex-col gap-4">

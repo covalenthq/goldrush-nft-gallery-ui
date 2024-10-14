@@ -8,7 +8,7 @@ export const GRKKit: GRKKitType = {
     github: "https://github.com/covalenthq/goldrush-nft-gallery-ui"
   },
   theme: {
-    borderRadius: 80,
+    borderRadius: 6,
     colors: {
       dark: {
         primary: "#FF4C8B",

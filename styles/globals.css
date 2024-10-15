@@ -71,11 +71,8 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Chain, NftTokenContract } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
-import { ExternalLinkIcon } from "lucide-react"
+import {
+  ExternalLinkIcon,
+  Grid2X2Icon,
+  Grid3X3Icon,
+  Square,
+} from "lucide-react"
 
-import { COVALENT_API_KEY } from "@/lib/utils"
+import { cn, COVALENT_API_KEY } from "@/lib/utils"
 import {
   Select,
   SelectContent,
@@ -31,6 +36,7 @@ const NftCollectionTokenList: React.FC<{
   const [pageSize, setPageSize] = useState<number>(10)
   const [totalPages, setTotalPages] = useState<number>(1)
   const [busy, setBusy] = useState<boolean>(false)
+  const [imageSize, setImageSize] = useState<number>(60)
   const { theme } = useGoldRush()
   const router = useRouter()
 
@@ -38,7 +44,7 @@ const NftCollectionTokenList: React.FC<{
     ;(async () => {
       setBusy(true)
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page-1}&page-size=${pageSize}`
+        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page - 1}&page-size=${pageSize}`
       )
       const nftData = await response.json()
       if (nftData.error) return
@@ -80,25 +86,50 @@ const NftCollectionTokenList: React.FC<{
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-4">
-        {busy
-          ? [...Array(10)].map((_) => (
-              <div
-                key={_}
-                className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
-                style={{
-                  borderRadius: theme.borderRadius,
-                }}
-              >
-                <div
-                  className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"
-                  style={{
-                    borderRadius: theme.borderRadius,
-                  }}
-                ></div>
-              </div>
-            ))
-          : nftTokens?.map((token) => (
+      {busy ? (
+        [...Array(10)].map((_) => (
+          <div
+            key={_}
+            className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
+            style={{
+              borderRadius: theme.borderRadius,
+            }}
+          >
+            <div
+              className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"
+              style={{
+                borderRadius: theme.borderRadius,
+              }}
+            ></div>
+          </div>
+        ))
+      ) : (
+        <div className="flex flex-col">
+          <div className="flex items-end justify-end w-full p-3">
+            <Square
+              className={cn(
+                "inline-block mr-2 text-secondary-light dark:text-secondary-dark",
+                imageSize === 60 && "text-primary-light dark:text-primary-dark"
+              )}
+              onClick={() => setImageSize(60)}
+            />
+            <Grid2X2Icon
+              className={cn(
+                "inline-block mr-2 text-secondary-light dark:text-secondary-dark",
+                imageSize === 40 && "text-primary-light dark:text-primary-dark"
+              )}
+              onClick={() => setImageSize(40)}
+            />
+            <Grid3X3Icon
+              className={cn(
+                "inline-block mr-2 text-secondary-light dark:text-secondary-dark",
+                imageSize === 28 && "text-primary-light dark:text-primary-dark"
+              )}
+              onClick={() => setImageSize(28)}
+            />
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            {nftTokens?.map((token) => (
               <div
                 key={token.nft_data?.token_id}
                 className="border border-secondary-light dark:border-secondary-dark"
@@ -123,7 +154,11 @@ const NftCollectionTokenList: React.FC<{
                   <img
                     src={token.nft_data?.external_data?.image}
                     alt={token.nft_data?.external_data?.name}
-                    className="w-60 h-60 block cursor-pointer"
+                    className={cn(
+                      "object-cover h-60 w-60 mx-auto",
+                      imageSize === 40 && "h-40 w-40",
+                      imageSize === 28 && "h-28 w-28"
+                    )}
                     style={{
                       borderTopLeftRadius: theme.borderRadius,
                       borderTopRightRadius: theme.borderRadius,
@@ -132,9 +167,6 @@ const NftCollectionTokenList: React.FC<{
                 </div>
 
                 <div>
-                  <div className="text-secondary-light dark:text-secondary-dark px-2 pt-2">
-                    {token.contract_name}
-                  </div>
                   <div className="font-bold px-2 pb-2">
                     {token.nft_data?.external_data?.name ??
                       `#${token.nft_data?.token_id}`}
@@ -142,7 +174,9 @@ const NftCollectionTokenList: React.FC<{
                 </div>
               </div>
             ))}
-      </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-between mt-4 w-full">
         <div className="mb-4">

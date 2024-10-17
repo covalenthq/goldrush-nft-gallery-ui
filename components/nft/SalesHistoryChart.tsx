@@ -14,7 +14,6 @@ const SalesHistoryChart: React.FC<{
 }> = ({ params }) => {
   const { theme } = useGoldRush()
   const [days, setDays] = useState<number>(7)
-  const [currency, setCurrency] = useState<"usd" | "native">("usd")
   const [busy, setBusy] = useState<boolean>(false)
   const [salesChartData, setSalesChartData] = useState<any>({
     data: [],
@@ -37,7 +36,7 @@ const SalesHistoryChart: React.FC<{
       setSalesChartData({ labels, data: sales })
       setBusy(false)
     })()
-  }, [params, days, currency])
+  }, [params, days])
 
   return (
     <div
@@ -47,23 +46,7 @@ const SalesHistoryChart: React.FC<{
       <div className="flex w-full justify-between items-center">
         <h5 className="text-lg font-bold">Sales History</h5>
       </div>
-      <div className="flex w-full justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Button
-            className="text-sm font-medium"
-            variant={currency === "usd" ? "primary" : "outline"}
-            onClick={() => setCurrency("usd")}
-          >
-            USD
-          </Button>
-          <Button
-            className="text-sm font-medium"
-            variant={currency === "native" ? "primary" : "outline"}
-            onClick={() => setCurrency("native")}
-          >
-            Native
-          </Button>
-        </div>
+      <div className="flex w-full justify-end items-center">
         <div className="flex items-center gap-2">
           <Button
             className="text-sm font-medium"
@@ -95,7 +78,7 @@ const SalesHistoryChart: React.FC<{
           data={salesChartData.data}
           labels={salesChartData.labels}
           mode={theme.mode}
-          dataLabel="Floor Price"
+          dataLabel="Sales"
         />
       )}
     </div>

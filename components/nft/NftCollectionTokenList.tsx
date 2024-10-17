@@ -8,6 +8,7 @@ import {
   Grid3X3Icon,
   Square,
 } from "lucide-react"
+import { thumbHashToDataURL } from "thumbhash"
 
 import { cn, COVALENT_API_KEY } from "@/lib/utils"
 import {
@@ -87,42 +88,44 @@ const NftCollectionTokenList: React.FC<{
   return (
     <div className="flex flex-col gap-4">
       {busy ? (
-        [...Array(10)].map((_) => (
-          <div
-            key={_}
-            className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
-            style={{
-              borderRadius: theme.borderRadius,
-            }}
-          >
+        <div className="flex flex-wrap items-center gap-4">
+          {[...Array(10)].map((_) => (
             <div
-              className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"
+              key={_}
+              className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
               style={{
                 borderRadius: theme.borderRadius,
               }}
-            ></div>
-          </div>
-        ))
+            >
+              <div
+                className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"
+                style={{
+                  borderRadius: theme.borderRadius,
+                }}
+              ></div>
+            </div>
+          ))}
+        </div>
       ) : (
         <div className="flex flex-col">
           <div className="flex items-end justify-end w-full p-3">
             <Square
               className={cn(
-                "inline-block mr-2 text-secondary-light dark:text-secondary-dark",
+                "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
                 imageSize === 60 && "text-primary-light dark:text-primary-dark"
               )}
               onClick={() => setImageSize(60)}
             />
             <Grid2X2Icon
               className={cn(
-                "inline-block mr-2 text-secondary-light dark:text-secondary-dark",
+                "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
                 imageSize === 40 && "text-primary-light dark:text-primary-dark"
               )}
               onClick={() => setImageSize(40)}
             />
             <Grid3X3Icon
               className={cn(
-                "inline-block mr-2 text-secondary-light dark:text-secondary-dark",
+                "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
                 imageSize === 28 && "text-primary-light dark:text-primary-dark"
               )}
               onClick={() => setImageSize(28)}
@@ -152,8 +155,25 @@ const NftCollectionTokenList: React.FC<{
                     <ExternalLinkIcon className="absolute top-2 right-2 text-white opacity-0 group-hover:opacity-100" />
                   </div>
                   <img
-                    src={token.nft_data?.external_data?.image}
-                    alt={token.nft_data?.external_data?.name}
+                    src={thumbHashToDataURL(
+                      new Uint8Array(
+                        atob(
+                          // @ts-expect-error - Thumbnails not added in SDK type
+                          token.nft_data?.external_data?.thumbnails.thumbhash
+                        )
+                          .split("")
+                          .map((x) => x.charCodeAt(0))
+                      )
+                    )}
+                    alt={"Token"}
+                    loading="lazy"
+                    onLoad={(e) => {
+                      ;(e.target as HTMLImageElement).src =
+                        token.nft_data?.external_data?.image_1024 ||
+                        // @ts-expect-error - Thumbnails not added in SDK type
+                        token.nft_data?.external_data?.thumbnails.thumbhash ||
+                        ""
+                    }}
                     className={cn(
                       "object-cover h-60 w-60 mx-auto",
                       imageSize === 40 && "h-40 w-40",
@@ -200,8 +220,12 @@ const NftCollectionTokenList: React.FC<{
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
-                onClick={() => handlePageChange(page - 1)}
-                isActive={page === 1}
+                onClick={() => {
+                  if (page > 1) {
+                    handlePageChange(page - 1)
+                  }
+                }}
+                isActive={page !== 1}
               />
             </PaginationItem>
 
@@ -224,8 +248,12 @@ const NftCollectionTokenList: React.FC<{
 
             <PaginationItem>
               <PaginationNext
-                onClick={() => handlePageChange(page + 1)}
-                isActive={page === totalPages}
+                onClick={() => {
+                  if (page < totalPages) {
+                    handlePageChange(page + 1)
+                  }
+                }}
+                isActive={page !== totalPages}
               />
             </PaginationItem>
           </PaginationContent>

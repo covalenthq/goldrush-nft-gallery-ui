@@ -55,4 +55,5 @@ export interface NftDetailsType {
   }[]
   current_owner: string
   original_owner: string
+  thumbhash: string
 }

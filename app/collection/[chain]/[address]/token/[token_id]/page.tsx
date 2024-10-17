@@ -27,6 +27,8 @@ export default function Collection({
       )
       const nftData = await response.json()
 
+      console.log(nftData)
+
       setNftDetails({
         collection_name: nftData.data.items[0].contract_name,
         collection_address: nftData.data.items[0].contract_address,
@@ -36,6 +38,8 @@ export default function Collection({
         attributes: nftData.data.items[0].nft_data[0].external_data.attributes,
         current_owner: nftData.data.items[0].nft_data[0].owner_address,
         original_owner: nftData.data.items[0].nft_data[0].original_owner,
+        thumbhash:
+          nftData.data.items[0].nft_data[0].external_data.thumbnails?.thumbhash ?? "",
       })
       setBusy(false)
     })()

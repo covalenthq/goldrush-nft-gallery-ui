@@ -7,11 +7,14 @@ const NftRender: React.FC<{
 }> = ({ nftDetails }) => {
   const { theme } = useGoldRush()
 
+  console.log(nftDetails)
+
   return (
     <div
       className="flex flex-col gap-2 border"
       style={{ borderRadius: `${theme.borderRadius}px` }}
     >
+      
       <img
         src={nftDetails.image_url}
         alt="NFT"

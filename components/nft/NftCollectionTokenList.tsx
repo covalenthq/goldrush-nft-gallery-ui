@@ -87,50 +87,56 @@ const NftCollectionTokenList: React.FC<{
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex items-end justify-end w-full p-3">
+        <Square
+          className={cn(
+            "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
+            imageSize === 60 && "text-primary-light dark:text-primary-dark"
+          )}
+          onClick={() => setImageSize(60)}
+        />
+        <Grid2X2Icon
+          className={cn(
+            "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
+            imageSize === 40 && "text-primary-light dark:text-primary-dark"
+          )}
+          onClick={() => setImageSize(40)}
+        />
+        <Grid3X3Icon
+          className={cn(
+            "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
+            imageSize === 28 && "text-primary-light dark:text-primary-dark"
+          )}
+          onClick={() => setImageSize(28)}
+        />
+      </div>
       {busy ? (
         <div className="flex flex-wrap items-center gap-4">
-          {[...Array(10)].map((_) => (
-            <div
-              key={_}
-              className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
-              style={{
-                borderRadius: theme.borderRadius,
-              }}
-            >
+          {[...Array(pageSize)].map(
+            (_) => (
               <div
-                className="group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60"
+                key={_}
+                className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
                 style={{
                   borderRadius: theme.borderRadius,
                 }}
-              ></div>
-            </div>
-          ))}
+              >
+                <div
+                  className={cn(
+                    "group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60",
+                    imageSize === 40 && "h-48 w-40",
+                    imageSize === 28 && "h-32 w-28"
+                  )}
+                  style={{
+                    borderRadius: theme.borderRadius,
+                  }}
+                ></div>
+              </div>
+            )
+          )}
         </div>
       ) : (
         <div className="flex flex-col">
-          <div className="flex items-end justify-end w-full p-3">
-            <Square
-              className={cn(
-                "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
-                imageSize === 60 && "text-primary-light dark:text-primary-dark"
-              )}
-              onClick={() => setImageSize(60)}
-            />
-            <Grid2X2Icon
-              className={cn(
-                "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
-                imageSize === 40 && "text-primary-light dark:text-primary-dark"
-              )}
-              onClick={() => setImageSize(40)}
-            />
-            <Grid3X3Icon
-              className={cn(
-                "inline-block mr-2 text-secondary-light dark:text-secondary-dark cursor-pointer",
-                imageSize === 28 && "text-primary-light dark:text-primary-dark"
-              )}
-              onClick={() => setImageSize(28)}
-            />
-          </div>
           <div className="flex flex-wrap items-center gap-4">
             {nftTokens?.map((token) => (
               <div
@@ -204,13 +210,13 @@ const NftCollectionTokenList: React.FC<{
             onValueChange={(value) => handlePageSizeChange(parseInt(value))}
             defaultValue={pageSize.toString()}
           >
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="w-48">
               <SelectValue placeholder="Page Size" />
             </SelectTrigger>
             <SelectContent className="bg-background-light dark:bg-background-dark">
               {["5", "10", "20", "30", "50"].map((size) => (
                 <SelectItem key={size} value={size}>
-                  Row Size: {size}
+                  Items Per Page: {size}
                 </SelectItem>
               ))}
             </SelectContent>

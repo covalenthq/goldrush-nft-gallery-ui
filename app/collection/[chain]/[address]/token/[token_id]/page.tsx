@@ -23,23 +23,21 @@ export default function Collection({
     ;(async () => {
       setBusy(true)
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/tokens/${params.address}/nft_metadata/${params.token_id}/?key=${COVALENT_API_KEY}`
+        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/${params.token_id}/?key=${COVALENT_API_KEY}`
       )
       const nftData = await response.json()
-
-      console.log(nftData)
 
       setNftDetails({
         collection_name: nftData.data.items[0].contract_name,
         collection_address: nftData.data.items[0].contract_address,
-        token_id: nftData.data.items[0].nft_data[0].token_id,
-        token_name: nftData.data.items[0].nft_data[0].external_data.name,
-        image_url: nftData.data.items[0].nft_data[0].external_data.image,
-        attributes: nftData.data.items[0].nft_data[0].external_data.attributes,
-        current_owner: nftData.data.items[0].nft_data[0].owner_address,
-        original_owner: nftData.data.items[0].nft_data[0].original_owner,
+        token_id: nftData.data.items[0].nft_data.token_id,
+        token_name: nftData.data.items[0].nft_data.external_data.name,
+        image_url: nftData.data.items[0].nft_data.external_data.image,
+        attributes: nftData.data.items[0].nft_data.external_data.attributes,
+        current_owner: nftData.data.items[0].nft_data.owner_address,
+        original_owner: nftData.data.items[0].nft_data.original_owner,
         thumbhash:
-          nftData.data.items[0].nft_data[0].external_data.thumbnails?.thumbhash ?? "",
+          nftData.data.items[0].nft_data.external_data.thumbnails?.thumbhash ?? "",
       })
       setBusy(false)
     })()

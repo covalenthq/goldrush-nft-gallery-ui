@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { CHAINS } from "@/utils/constants/chains"
 import { NftContext } from "@/utils/store/NFT.store"
 import { ChainItem, GoldRushClient } from "@covalenthq/client-sdk"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronsUpDown, LoaderCircleIcon } from "lucide-react"
 
 import { cn, COVALENT_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -43,6 +43,7 @@ export default function IndexPage() {
     nftAddress ?? "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
   )
   const [busy, setBusy] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
   const [value, setValue] = useState<string>("eth-mainnet")
@@ -106,6 +107,7 @@ export default function IndexPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault()
+            setLoading(true)
             router.push(`/collection/${value}/${address}`)
           }}
         >
@@ -136,7 +138,15 @@ export default function IndexPage() {
                 disabled={address.length === 0 || !value || busy}
                 type="submit"
               >
-                Continue
+                {
+                  <div className="flex items-center gap-2">
+                    {loading ? (
+                      <LoaderCircleIcon size={16} className="animate-spin" />
+                    ) : (
+                      "Continue"
+                    )}
+                  </div>
+                }
               </Button>
             </div>
           </div>

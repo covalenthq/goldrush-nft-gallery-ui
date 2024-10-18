@@ -44,7 +44,7 @@ export default function Collection({
   }, [params])
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="container flex flex-col gap-4 w-full">
       {busy && (
         <div className="flex items-start gap-x-4">
           <div

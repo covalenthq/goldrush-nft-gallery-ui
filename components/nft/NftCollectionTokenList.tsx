@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { NftTraitFilter } from "@/utils/types/shared.types"
 import { Chain, NftTokenContract } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
 import {
@@ -19,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import FacetSearch from "../filters/FacetSearch"
 import {
   Pagination,
   PaginationContent,
@@ -34,28 +36,18 @@ const NftCollectionTokenList: React.FC<{
   params: { chain: Chain; address: string }
 }> = ({ params }) => {
   const [nftTokens, setNftTokens] = useState<NftTokenContract[] | null>(null)
+  const [filteredTokens, setFilteredTokens] = useState<
+    NftTokenContract[] | null
+  >(null)
+  const [selectedTraits, setSelectedTraits] = useState<NftTraitFilter | null>(
+    null
+  )
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
   const [totalPages, setTotalPages] = useState<number>(1)
   const [busy, setBusy] = useState<boolean>(false)
   const [imageSize, setImageSize] = useState<number>(60)
   const { theme } = useGoldRush()
-  const router = useRouter()
-
-  useEffect(() => {
-    ;(async () => {
-      setBusy(true)
-      const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page - 1}&page-size=${pageSize}`
-      )
-      const nftData = await response.json()
-      if (nftData.error) return
-
-      setNftTokens(nftData.data.items)
-      setTotalPages(Math.ceil(nftData.data.pagination.total_count / pageSize))
-      setBusy(false)
-    })()
-  }, [params, page, pageSize])
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
@@ -86,8 +78,41 @@ const NftCollectionTokenList: React.FC<{
     return pages
   }
 
+  useEffect(() => {
+    ;(async () => {
+      setBusy(true)
+      const response = await fetch(
+        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page - 1}&page-size=${pageSize}`
+      )
+      const nftData = await response.json()
+      if (nftData.error) return
+
+      setNftTokens(nftData.data.items)
+      setFilteredTokens(nftData.data.items)
+      setTotalPages(Math.ceil(nftData.data.pagination.total_count / pageSize))
+      setBusy(false)
+    })()
+  }, [params, page, pageSize])
+
+  useEffect(() => {
+    if (nftTokens && selectedTraits) {
+      const filteredTokens = nftTokens.filter((nft) => {
+        return Object.keys(selectedTraits).some((trait_type) => {
+          return selectedTraits[trait_type].some((value) =>
+            nft.nft_data?.external_data?.attributes.some((attr) => {
+              return attr.trait_type === trait_type && attr.value === value
+            })
+          )
+        })
+      })
+      setFilteredTokens(filteredTokens)
+    } else {
+      setFilteredTokens(nftTokens)
+    }
+  }, [selectedTraits, nftTokens])
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex items-end justify-end w-full p-3">
         <Square
           className={cn(
@@ -112,32 +137,40 @@ const NftCollectionTokenList: React.FC<{
         />
       </div>
       {busy ? (
-        <div className="flex flex-wrap items-center gap-4">
-          {[...Array(pageSize)].map((_) => (
-            <div
-              key={_}
-              className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
-              style={{
-                borderRadius: theme.borderRadius,
-              }}
-            >
+        <div className="flex items-start gap-x-4">
+          <div className="min-w-52 w-52 h-60 py-40 bg-secondary-light dark:bg-secondary-dark rounded-lg animate-pulse" />
+          <div className="flex flex-wrap items-center gap-4">
+            {[...Array(pageSize)].map((_) => (
               <div
-                className={cn(
-                  "group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60",
-                  imageSize === 40 && "h-48 w-40",
-                  imageSize === 28 && "h-32 w-28"
-                )}
+                key={_}
+                className="bg-secondary-light dark:bg-secondary-dark rounded animate-pulse"
                 style={{
                   borderRadius: theme.borderRadius,
                 }}
-              ></div>
-            </div>
-          ))}
+              >
+                <div
+                  className={cn(
+                    "group bg-secondary-light dark:bg-secondary-dark transition-all relative h-72 w-60",
+                    imageSize === 40 && "h-48 w-40",
+                    imageSize === 28 && "h-32 w-28"
+                  )}
+                  style={{
+                    borderRadius: theme.borderRadius,
+                  }}
+                ></div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
-        <div className="flex flex-col">
+        <div className="flex items-start gap-x-4">
+          <FacetSearch
+            params={params}
+            selectedTraits={selectedTraits ?? {}}
+            setSelectedTraits={setSelectedTraits}
+          />
           <div className="flex flex-wrap items-center gap-4">
-            {nftTokens?.map((token) => (
+            {filteredTokens?.map((token) => (
               <NFTCollectionTokenListItem
                 token={token}
                 imageSize={imageSize}

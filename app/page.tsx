@@ -94,7 +94,7 @@ export default function IndexPage() {
   }, [])
 
   return (
-    <section className="container flex flex-col justify-center gap-6 md:py-10 h-[calc(100vh-150px)] items-center ">
+    <section className="flex flex-col justify-center gap-6 md:py-10 h-[calc(100vh-150px)] items-center ">
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-4xl">
           GoldRush NFT Gallery UI

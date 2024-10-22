@@ -16,42 +16,23 @@ const FacetSearch: React.FC<{
   const [openAttribute, setOpenAttribute] = useState<string[]>([])
 
   const handleUpdateTraits = (trait_type: string, value: string) => {
-    if (selectedTraits) {
-      if (selectedTraits[trait_type]) {
-        if (selectedTraits[trait_type].includes(value)) {
-          const updatedTraits = {
-            ...selectedTraits,
-            [trait_type]: selectedTraits[trait_type].filter(
-              (trait) => trait !== value
-            ),
-          };
-          if (updatedTraits[trait_type].length === 0) {
-            delete updatedTraits[trait_type];
-          }
-          if (Object.keys(updatedTraits).length === 0) {
-            setSelectedTraits(null);
-          } else {
-            setSelectedTraits(updatedTraits);
-          }
-        } else {
-          setSelectedTraits({
-            ...selectedTraits,
-            [trait_type]: [...selectedTraits[trait_type], value],
-          });
-        }
-      } else {
-        setSelectedTraits({
-          ...selectedTraits,
-          [trait_type]: [value],
-        });
-      }
+    if (
+      selectedTraits &&
+      selectedTraits[trait_type] &&
+      selectedTraits[trait_type][0] === value
+    ) {
+      const updatedTraits = { ...selectedTraits }
+      delete updatedTraits[trait_type]
+      setSelectedTraits(
+        Object.keys(updatedTraits).length > 0 ? updatedTraits : null
+      )
     } else {
       setSelectedTraits({
+        ...selectedTraits,
         [trait_type]: [value],
-      });
+      })
     }
-  };
-  
+  }
 
   useEffect(() => {
     ;(async () => {

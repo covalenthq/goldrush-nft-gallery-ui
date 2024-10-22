@@ -14,6 +14,7 @@ const FacetSearch: React.FC<{
 }> = ({ params, selectedTraits, setSelectedTraits }) => {
   const [attributes, setAttributes] = useState<NftTraitSummary[]>([])
   const [openAttribute, setOpenAttribute] = useState<string[]>([])
+  const [busy, setBusy] = useState<boolean>(false)
 
   const handleUpdateTraits = (trait_type: string, value: string) => {
     if (
@@ -36,6 +37,7 @@ const FacetSearch: React.FC<{
 
   useEffect(() => {
     ;(async () => {
+      setBusy(true)
       const client = new GoldRushClient(COVALENT_API_KEY!)
       const attributeData = await client.NftService.getCollectionTraitsSummary(
         params.chain,
@@ -45,6 +47,7 @@ const FacetSearch: React.FC<{
       if (attributeData.data.items) {
         setAttributes(attributeData.data.items)
       }
+      setBusy(false)
     })()
   }, [params])
 
@@ -56,61 +59,78 @@ const FacetSearch: React.FC<{
       <span className="text-xs font-semibold text-foreground-light dark:text-foreground-dark opacity-70">
         Single value per trait
       </span>
-      {attributes.map((attribute, index) => (
-        <div key={attribute.name}>
-          <button
-            className="flex flex-col items-start justify-between mt-2 gap-y-1.5 w-full pr-12"
-            onClick={() => {
-              if (attribute.name) {
-                if (openAttribute.includes(attribute.name)) {
-                  setOpenAttribute(
-                    openAttribute.filter((attr) => attr !== attribute.name)
-                  )
-                } else {
-                  setOpenAttribute([...openAttribute, attribute.name])
-                }
-              }
-            }}
-          >
-            <span className="text-sm text-foreground-light dark:text-foreground-dark">
-              {attribute.name}
-            </span>
-          </button>
-          {attribute.name &&
-          openAttribute.includes(attribute.name) &&
-          attribute.attributes
-            ? attribute.attributes.map((attr, index) => (
-                <span
-                  key={attr.trait_type}
-                  className="text-xs text-gray-500 flex flex-col gap-y-1 w-full"
-                >
-                  {attr.values
-                    ? attr.values.map((value, index) => (
-                        <button
-                          key={value.value}
-                          className={cn(
-                            "flex items-center text-xs text-secondary-light dark:text-secondary-dark justify-between w-full gap-x-2",
-                            selectedTraits[attr.trait_type ?? ""]?.includes(
-                              value.value ?? ""
-                            ) && "text-primary-light dark:text-primary-dark"
-                          )}
-                          onClick={() => {
-                            handleUpdateTraits(
-                              attr.trait_type ?? "",
-                              value.value ?? ""
-                            )
-                          }}
-                        >
-                          <span>{value.value}</span>
-                          <span>{value.count}</span>
-                        </button>
-                      ))
-                    : null}
+      {busy ? (
+        <>
+          {[...Array(3)].map((_) => (
+            <div
+              key={_}
+              className="animate-pulse flex flex-col gap-y-1.5 w-full pr-12"
+            >
+              <span className="animate-pulse bg-gray-200 dark:bg-gray-800 h-4 w-1/2"></span>
+              <span className="animate-pulse bg-gray-200 dark:bg-gray-800 h-4 w-1/2"></span>
+              <span className="animate-pulse bg-gray-200 dark:bg-gray-800 h-4 w-1/2"></span>
+            </div>
+          ))}
+        </>
+      ) : (
+        <>
+          {attributes.map((attribute, index) => (
+            <div key={attribute.name}>
+              <button
+                className="flex flex-col items-start justify-between mt-2 gap-y-1.5 w-full pr-12"
+                onClick={() => {
+                  if (attribute.name) {
+                    if (openAttribute.includes(attribute.name)) {
+                      setOpenAttribute(
+                        openAttribute.filter((attr) => attr !== attribute.name)
+                      )
+                    } else {
+                      setOpenAttribute([...openAttribute, attribute.name])
+                    }
+                  }
+                }}
+              >
+                <span className="text-sm text-foreground-light dark:text-foreground-dark">
+                  {attribute.name}
                 </span>
-              ))
-            : null}
-        </div>
-      ))}
+              </button>
+              {attribute.name &&
+              openAttribute.includes(attribute.name) &&
+              attribute.attributes
+                ? attribute.attributes.map((attr, index) => (
+                    <span
+                      key={attr.trait_type}
+                      className="text-xs text-gray-500 flex flex-col gap-y-1 w-full"
+                    >
+                      {attr.values
+                        ? attr.values.map((value, index) => (
+                            <button
+                              key={value.value}
+                              className={cn(
+                                "flex items-center text-xs text-secondary-light dark:text-secondary-dark justify-between w-full gap-x-2",
+                                selectedTraits[attr.trait_type ?? ""]?.includes(
+                                  value.value ?? ""
+                                ) && "text-primary-light dark:text-primary-dark"
+                              )}
+                              onClick={() => {
+                                handleUpdateTraits(
+                                  attr.trait_type ?? "",
+                                  value.value ?? ""
+                                )
+                              }}
+                            >
+                              <span>{value.value}</span>
+                              <span>{value.count}</span>
+                            </button>
+                          ))
+                        : null}
+                    </span>
+                  ))
+                : null}
+            </div>
+          ))}
+        </>
+      )}
     </div>
   )
 }

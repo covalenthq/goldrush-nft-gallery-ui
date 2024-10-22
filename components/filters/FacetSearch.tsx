@@ -72,6 +72,9 @@ const FacetSearch: React.FC<{
       <h6 className="text-sm font-semibold text-foreground-light dark:text-foreground-dark">
         Filter by Attributes
       </h6>
+      <span className="text-xs font-semibold text-foreground-light dark:text-foreground-dark opacity-70">
+        Single value per trait
+      </span>
       {attributes.map((attribute, index) => (
         <div key={attribute.name}>
           <button

@@ -5,26 +5,11 @@ import { useRouter } from "next/navigation"
 import { CHAINS } from "@/utils/constants/chains"
 import { NftContext } from "@/utils/store/NFT.store"
 import { ChainItem, GoldRushClient } from "@covalenthq/client-sdk"
-import { Check, ChevronsUpDown, LoaderCircleIcon } from "lucide-react"
-
-import { cn, COVALENT_API_KEY } from "@/lib/utils"
+import { LoaderCircleIcon } from "lucide-react"
+import { COVALENT_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { useToast } from "@/components/ui/use-toast"
 import ChainSelector from "@/components/chain/ChainSelector"
 

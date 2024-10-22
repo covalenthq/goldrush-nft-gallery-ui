@@ -57,7 +57,7 @@ export default function Collection({
 
   return (
     <div className="w-full flex flex-col gap-4 pb-10">
-      <div className="w-full flex justify-between gap-2">
+      <div className="container w-full flex justify-between gap-2">
         <div className="flex flex-col gap-2">
           <AddressCard
             address={params.address}
@@ -93,14 +93,17 @@ export default function Collection({
         <FloorPriceChart params={params} />
         <SalesHistoryChart params={params} />
       </div>
-      <NftCollectionTokenList params={params} />
-      <Flex
-        onClick={() => {
-          router.back()
-        }}
-      >
-        <Button>Back</Button>
-      </Flex>
+      <div className="px-40"> 
+        <NftCollectionTokenList params={params} />
+        <Button
+          onClick={() => {
+            router.back()
+          }}
+          className="w-24"
+        >
+          Back
+        </Button>
+      </div>
     </div>
   )
 }

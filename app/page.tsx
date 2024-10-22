@@ -5,26 +5,11 @@ import { useRouter } from "next/navigation"
 import { CHAINS } from "@/utils/constants/chains"
 import { NftContext } from "@/utils/store/NFT.store"
 import { ChainItem, GoldRushClient } from "@covalenthq/client-sdk"
-import { Check, ChevronsUpDown } from "lucide-react"
-
-import { cn, COVALENT_API_KEY } from "@/lib/utils"
+import { LoaderCircleIcon } from "lucide-react"
+import { COVALENT_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { useToast } from "@/components/ui/use-toast"
 import ChainSelector from "@/components/chain/ChainSelector"
 
@@ -43,6 +28,7 @@ export default function IndexPage() {
     nftAddress ?? "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
   )
   const [busy, setBusy] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
   const [value, setValue] = useState<string>("eth-mainnet")
@@ -94,7 +80,7 @@ export default function IndexPage() {
   }, [])
 
   return (
-    <section className="container flex flex-col justify-center gap-6 md:py-10 h-[calc(100vh-150px)] items-center ">
+    <section className="flex flex-col justify-center gap-6 md:py-10 h-[calc(100vh-150px)] items-center ">
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-4xl">
           GoldRush NFT Gallery UI
@@ -106,6 +92,7 @@ export default function IndexPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault()
+            setLoading(true)
             router.push(`/collection/${value}/${address}`)
           }}
         >
@@ -136,7 +123,15 @@ export default function IndexPage() {
                 disabled={address.length === 0 || !value || busy}
                 type="submit"
               >
-                Continue
+                {
+                  <div className="flex items-center gap-2">
+                    {loading ? (
+                      <LoaderCircleIcon size={16} className="animate-spin" />
+                    ) : (
+                      "Continue"
+                    )}
+                  </div>
+                }
               </Button>
             </div>
           </div>

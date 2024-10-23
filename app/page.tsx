@@ -93,6 +93,51 @@ export default function IndexPage() {
           Accessible and customizable components that you can copy and paste
           into your apps. Free. Open Source. And Next.js 13 Ready.
         </p>
+        <p className="font-medium">Try out some of the top collections.</p>
+        <div className="flex flex-wrap items-center gap-4 max-w-5xl">
+          {TOP_COLLECTIONS.map((collection) => (
+            <button
+              key={collection.collection_address}
+              className="flex items-center gap-3 p-2 border border-secondary-light dark:border-secondary-dark rounded-md w-80"
+              onClick={() => {
+                setLoading(true)
+                router.push(
+                  `/collection/${collection.chain_mapping}/${collection.collection_address}`
+                )
+              }}
+            >
+              <img
+                src={thumbHashToDataURL(
+                  new Uint8Array(
+                    atob(collection.thumbhash)
+                      .split("")
+                      .map((x) => x.charCodeAt(0))
+                  )
+                )}
+                alt={"Token"}
+                loading="lazy"
+                onLoad={(e) => {
+                  ;(e.target as HTMLImageElement).src =
+                    collection.logo || collection.thumbhash || ""
+                }}
+                className="h-12 w-12 rounded-xl"
+              />
+              <div className="flex flex-col items-start text-left">
+                <p className="font-semibold text-primary-light dark:text-primary-dark text-sm">
+                  {collection.name}
+                </p>
+                <p className="text-xs text-secondary-light dark:text-secondary-dark">
+                  {collection.chain}
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
+        <p className="font-medium -mt-2">
+          OR
+          <br />
+          Enter an NFT Contract Address.
+        </p>
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -101,6 +146,7 @@ export default function IndexPage() {
           }}
         >
           <div className="flex flex-col gap-2">
+            <Label htmlFor="chain_selector">Chain</Label>
             <ChainSelector
               open={open}
               value={value}
@@ -139,45 +185,6 @@ export default function IndexPage() {
             </Button>
           </div>
         </form>
-      </div>
-      <div className="flex flex-wrap items-center gap-4 max-w-5xl mt-6">
-        {TOP_COLLECTIONS.map((collection) => (
-          <button
-            key={collection.collection_address}
-            className="flex items-center gap-3 p-2 border border-secondary-light dark:border-secondary-dark rounded-md w-80"
-            onClick={() => {
-              setLoading(true)
-              router.push(
-                `/collection/${collection.chain_mapping}/${collection.collection_address}`
-              )
-            }}
-          >
-            <img
-              src={thumbHashToDataURL(
-                new Uint8Array(
-                  atob(collection.thumbhash)
-                    .split("")
-                    .map((x) => x.charCodeAt(0))
-                )
-              )}
-              alt={"Token"}
-              loading="lazy"
-              onLoad={(e) => {
-                ;(e.target as HTMLImageElement).src =
-                  collection.logo || collection.thumbhash || ""
-              }}
-              className="h-12 w-12 rounded-xl"
-            />
-            <div className="flex flex-col items-start text-left">
-              <p className="font-semibold text-primary-light dark:text-primary-dark text-sm">
-                {collection.name}
-              </p>
-              <p className="text-xs text-secondary-light dark:text-secondary-dark">
-                {collection.chain}
-              </p>
-            </div>
-          </button>
-        ))}
       </div>
     </section>
   )

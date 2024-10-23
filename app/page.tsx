@@ -146,6 +146,7 @@ export default function IndexPage() {
             key={collection.collection_address}
             className="flex items-center gap-3 p-2 border border-secondary-light dark:border-secondary-dark rounded-md w-80"
             onClick={() => {
+              setLoading(true)
               router.push(
                 `/collection/${collection.chain_mapping}/${collection.collection_address}`
               )

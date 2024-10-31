@@ -4,7 +4,7 @@ export const GRKKit: GRKKitType = {
   brand: {
     title: "GoldRush",
     subtitle: "NFT Gallery UI",
-    logo_url: "/assets/goldrush-logo.svg",
+    logo_url: "/goldrush-logo.png",
     github: "https://github.com/covalenthq/goldrush-nft-gallery-ui"
   },
   theme: {

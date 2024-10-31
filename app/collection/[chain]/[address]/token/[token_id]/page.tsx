@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation"
 import { NftDetailsType } from "@/utils/types/shared.types"
 import { Chain } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
-
-import { COVALENT_API_KEY } from "@/lib/utils"
+import { GOLDRUSH_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import NftDetails from "@/components/nft/NftDetails"
 import NftRender from "@/components/nft/NftRender"
@@ -23,7 +22,7 @@ export default function Collection({
     ;(async () => {
       setBusy(true)
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/${params.token_id}/?key=${COVALENT_API_KEY}`
+        `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/${params.token_id}/?key=${GOLDRUSH_API_KEY}`
       )
       const nftData = await response.json()
 

@@ -5,7 +5,7 @@ import { Chain, NftTokenContract } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
 import { Grid2X2Icon, Grid3X3Icon, Square } from "lucide-react"
 
-import { cn, COVALENT_API_KEY } from "@/lib/utils"
+import { cn, GOLDRUSH_API_KEY } from "@/lib/utils"
 import {
   Select,
   SelectContent,
@@ -87,7 +87,7 @@ const NftCollectionTokenList: React.FC<{
       let response
       if (Object.keys(selectedTraits ?? {}).length !== 0) {
         response = await fetch(
-          `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page - 1}&page-size=${pageSize}&traits-filter=${Object.keys(selectedTraits ?? {}).join("%2C")}&values-filter=${Object.values(
+          `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${GOLDRUSH_API_KEY}&page-number=${page - 1}&page-size=${pageSize}&traits-filter=${Object.keys(selectedTraits ?? {}).join("%2C")}&values-filter=${Object.values(
             selectedTraits ?? {}
           )
             .flat()
@@ -95,7 +95,7 @@ const NftCollectionTokenList: React.FC<{
         )
       } else {
         response = await fetch(
-          `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-number=${page - 1}&page-size=${pageSize}`
+          `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${GOLDRUSH_API_KEY}&page-number=${page - 1}&page-size=${pageSize}`
         )
       }
       const nftData = await response.json()

@@ -12,16 +12,16 @@ export const Footer: React.FC = () => {
           rel="noopener noreferrer"
           className="font-medium leading-none hover:underline"
         >
-          GoldRush Kit Components
+          UI Kit
         </a>
 
         <a
-          href="https://www.covalenthq.com/docs/unified-api/"
+          href="https://www.goldrush.dev/docs/api/"
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium leading-none hover:underline"
         >
-          GoldRush API
+          API
         </a>
       </div>
 

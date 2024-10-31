@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { NftTraitFilter } from "@/utils/types/shared.types"
 import { Chain, GoldRushClient, NftTraitSummary } from "@covalenthq/client-sdk"
 
-import { cn, COVALENT_API_KEY } from "@/lib/utils"
+import { cn, GOLDRUSH_API_KEY } from "@/lib/utils"
 
 const FacetSearch: React.FC<{
   params: {
@@ -38,7 +38,7 @@ const FacetSearch: React.FC<{
   useEffect(() => {
     ;(async () => {
       setBusy(true)
-      const client = new GoldRushClient(COVALENT_API_KEY!)
+      const client = new GoldRushClient(GOLDRUSH_API_KEY!)
       const attributeData = await client.NftService.getCollectionTraitsSummary(
         params.chain,
         params.address

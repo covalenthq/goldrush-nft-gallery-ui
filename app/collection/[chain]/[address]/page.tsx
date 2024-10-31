@@ -5,9 +5,7 @@ import { useRouter } from "next/navigation"
 import { CollectionStats } from "@/utils/types/shared.types"
 import { Chain } from "@covalenthq/client-sdk"
 import { AddressCard, useGoldRush } from "@covalenthq/goldrush-kit"
-import { Flex } from "@radix-ui/themes"
-
-import { COVALENT_API_KEY } from "@/lib/utils"
+import { GOLDRUSH_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import FloorPriceChart from "@/components/nft/FloorPriceChart"
 import NftCollectionTokenList from "@/components/nft/NftCollectionTokenList"
@@ -27,13 +25,13 @@ export default function Collection({
       setLoading(true)
       const responses = await Promise.all([
         fetch(
-          `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${COVALENT_API_KEY}&page-size=1`
+          `https://api.covalenthq.com/v1/${params.chain}/nft/${params.address}/metadata/?key=${GOLDRUSH_API_KEY}&page-size=1`
         ),
         fetch(
-          `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/floor_price/?key=${COVALENT_API_KEY}&days=7`
+          `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/floor_price/?key=${GOLDRUSH_API_KEY}&days=7`
         ),
         fetch(
-          `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/volume/?key=${COVALENT_API_KEY}`
+          `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/volume/?key=${GOLDRUSH_API_KEY}`
         ),
       ])
 

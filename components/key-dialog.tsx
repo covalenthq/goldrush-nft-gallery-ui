@@ -1,6 +1,6 @@
 "use client"
 
-import { COVALENT_API_KEY } from "@/lib/utils"
+import { GOLDRUSH_API_KEY } from "@/lib/utils"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,7 +13,7 @@ import {
 
 export const KeyDialog = () => {
   return (
-    <AlertDialog open={!COVALENT_API_KEY}>
+    <AlertDialog open={!GOLDRUSH_API_KEY}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Covalent API key not found.</AlertDialogTitle>

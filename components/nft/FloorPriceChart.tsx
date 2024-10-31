@@ -3,9 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { Chain } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
-
-import { COVALENT_API_KEY } from "@/lib/utils"
-
+import { GOLDRUSH_API_KEY } from "@/lib/utils"
 import LineChart from "../charts/LineChart"
 import { Button } from "../ui/button"
 
@@ -25,7 +23,7 @@ const FloorPriceChart: React.FC<{
     ;(async () => {
       setBusy(true)
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/floor_price/?key=${COVALENT_API_KEY}&days=${days}`
+        `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/floor_price/?key=${GOLDRUSH_API_KEY}&days=${days}`
       )
       const floorPriceData = await response.json()
       const labels = floorPriceData.data.items.map(

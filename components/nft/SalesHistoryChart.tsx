@@ -3,9 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { Chain } from "@covalenthq/client-sdk"
 import { useGoldRush } from "@covalenthq/goldrush-kit"
-
-import { COVALENT_API_KEY } from "@/lib/utils"
-
+import { GOLDRUSH_API_KEY } from "@/lib/utils"
 import BarChart from "../charts/BarChart"
 import { Button } from "../ui/button"
 
@@ -24,7 +22,7 @@ const SalesHistoryChart: React.FC<{
     ;(async () => {
       setBusy(true)
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/sale_count/?key=${COVALENT_API_KEY}&days=${days}`
+        `https://api.covalenthq.com/v1/${params.chain}/nft_market/${params.address}/sale_count/?key=${GOLDRUSH_API_KEY}&days=${days}`
       )
       const saleHistoryData = await response.json()
       const labels = saleHistoryData.data.items.map(

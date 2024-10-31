@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const COVALENT_API_KEY = process.env.NEXT_PUBLIC_COVALENT_API_KEY
+export const GOLDRUSH_API_KEY = process.env.NEXT_PUBLIC_GOLDRUSH_API_KEY
 
 export const COLORS = {
   "black": "#000000",

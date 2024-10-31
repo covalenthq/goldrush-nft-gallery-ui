@@ -66,7 +66,7 @@ export const NftUiProvider: React.FC<NftUiProviderProps> = ({ children }) => {
 
   return (
     <GoldRushProvider
-      apikey={process.env.NEXT_PUBLIC_COVALENT_API_KEY!}
+      apikey={process.env.NEXT_PUBLIC_GOLDRUSH_API_KEY!}
       theme={
         localStorage.getItem("goldrush_theme")
           ? JSON.parse(localStorage.getItem("goldrush_theme")!)

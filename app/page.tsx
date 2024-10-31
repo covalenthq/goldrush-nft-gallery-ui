@@ -6,11 +6,9 @@ import { CHAINS } from "@/utils/constants/chains"
 import { TOP_COLLECTIONS } from "@/utils/constants/collections"
 import { NftContext } from "@/utils/store/NFT.store"
 import { ChainItem, GoldRushClient } from "@covalenthq/client-sdk"
-import { AddressAvatar } from "@covalenthq/goldrush-kit"
 import { LoaderCircleIcon } from "lucide-react"
 import { thumbHashToDataURL } from "thumbhash"
-
-import { COVALENT_API_KEY } from "@/lib/utils"
+import { GOLDRUSH_API_KEY } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -41,9 +39,9 @@ export default function IndexPage() {
 
   const handleAllChains = async () => {
     setBusy(true)
-    if (!COVALENT_API_KEY) return
+    if (!GOLDRUSH_API_KEY) return
 
-    const client = new GoldRushClient(COVALENT_API_KEY)
+    const client = new GoldRushClient(GOLDRUSH_API_KEY)
     try {
       const allChainsResp = await client.BaseService.getAllChains()
       if (allChainsResp.error) {

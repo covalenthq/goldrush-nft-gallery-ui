@@ -1,8 +1,9 @@
 import * as React from "react"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
-import { NavItem } from "@/utils/types/shared.types"
 import kit from "@/goldrush.config"
+import { NavItem } from "@/utils/types/shared.types"
+
+import { cn } from "@/lib/utils"
 
 interface MainNavProps {
   items?: NavItem[]
@@ -11,8 +12,23 @@ interface MainNavProps {
 export function MainNav({ items }: Readonly<MainNavProps>) {
   return (
     <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="flex items-center space-x-2">
-        <span className="inline-block font-bold">{kit.brand.subtitle}</span>
+      <Link
+        href={`/`}
+        className="flex w-fit items-center gap-2"
+      >
+        <figure className="relative h-10 w-10">
+          <img
+            src={kit.brand.logo_url}
+            alt={`GoldRush NFT UI Kit`}
+            className="object-cover"
+          />
+        </figure>
+
+        <h1 className="whitespace-nowrap text-md font-medium leading-none">
+          {kit.brand.title}
+          <br />
+          {kit.brand.subtitle}
+        </h1>
       </Link>
       {items?.length ? (
         <nav className="flex gap-6">
